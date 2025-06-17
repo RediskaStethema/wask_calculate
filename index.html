@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="./logo.svg">
     <title>Расчёт стоимости</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: 'Georgia', serif;
@@ -24,7 +26,6 @@
         }
 
         label {
-            padding-top: 40px;
             display: block;
             margin-top: 20px;
             font-weight: bold;
@@ -98,6 +99,34 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        .social-icons {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            color: #6e4f4f;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .social-icons {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -123,16 +152,18 @@
         <li>Из воды извлекается 90% воска. Например, из 250 мл воды получится 225 мл воска.</li>
         <li>Стоимость воска: <strong>40 шекелей за 1 литр</strong> (0.04 шекеля за 1 мл).</li>
         <li>Из воска получается масло: <strong>6% от объёма воска</strong>. Например, из 225 мл воска — 13.5 мл масла.</li>
-        <li>Стоимость масла: <strong>50 шекелей за 60 грамм</strong> (примерно 0.83 шекеля за 1 грамм).</li>
+        <li>Стоимость масла: <strong>50 шекелей за 60 грамм</strong> (~0.83 шекеля за грамм).</li>
         <li>К стоимости добавляется базовая цена: <strong>2 шекеля</strong>.</li>
     </ul>
 </section>
 
 <footer>
     <p>© 2025 Даниил Гершзон</p>
-    <p>
-        <a href="https://www.linkedin.com/in/daniel-gershzon-5047a5313/" target="_blank">Мой LinkedIn</a>
-    </p>
+    <div class="social-icons">
+        <a href="https://www.linkedin.com/in/daniel-gershzon-5047a5313/" target="_blank" title="Мой LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    </div>
 </footer>
 
 <script>
@@ -191,3 +222,4 @@
 
 </body>
 </html>
+
