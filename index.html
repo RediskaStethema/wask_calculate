@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Расчёт стоимости</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f8f5f2;
+            color: #4b3e3e;
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: #6b4c4c;
+            font-size: 24px;
+            border-bottom: 1px solid #d4c4b6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            padding-top: 40px;
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #5a4747;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #cdbfb1;
+            border-radius: 8px;
+            background-color: #fffaf6;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #d6b8a5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c49e89;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #3d2f2f;
+        }
+
+        span {
+            font-weight: bold;
+            color: #6e4f4f;
+        }
+
+        section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f2e8e1;
+            border-radius: 12px;
+            border: 1px solid #d5c4b7;
+        }
+
+        section h3 {
+            margin-top: 0;
+            color: #6b4c4c;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #d4c4b6;
+            text-align: center;
+            font-size: 14px;
+            color: #6e4f4f;
+        }
+
+        footer a {
+            color: #6b4c4c;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Калькулятор стоимости</h2>
+
+<label for="inputX">Введите в миллилитрах воду:</label>
+<input type="number" id="inputX" placeholder="например, 250">
+<button onclick="calculate()">Рассчитать</button>
+<p>Результат стоимости: <span id="result">—</span> шекелей</p>
+<p>Количество воска: <span id="result_">—</span> миллилитров</p>
+<p>Количество масла: <span id="result1">—</span> грамм</p>
+
+<label for="inputY">Введите в миллилитрах воск:</label>
+<input type="number" id="inputY" placeholder="например, 250">
+<button onclick="calculateWask()">Рассчитать</button>
+<p>Результат стоимости: <span id="result!">—</span> шекелей</p>
+<p>Количество масла: <span id="result_!">—</span> миллилитров</p>
+
+<section>
+    <h3>Как считается:</h3>
+    <ul>
+        <li>Из воды извлекается 90% воска. Например, из 250 мл воды получится 225 мл воска.</li>
+        <li>Стоимость воска: <strong>40 шекелей за 1 литр</strong> (0.04 шекеля за 1 мл).</li>
+        <li>Из воска получается масло: <strong>6% от объёма воска</strong>. Например, из 225 мл воска — 13.5 мл масла.</li>
+        <li>Стоимость масла: <strong>50 шекелей за 60 грамм</strong> (примерно 0.83 шекеля за 1 грамм).</li>
+        <li>К стоимости добавляется базовая цена: <strong>2 шекеля</strong>.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>© 2025 Даниил Гершзон</p>
+    <p>
+        <a href="https://www.linkedin.com/in/daniel-gershzon-5047a5313/" target="_blank">Мой LinkedIn</a>
+    </p>
+</footer>
+
+<script>
+    function resfunc(x) {
+        let water_to_wask = x * 0.9;
+        let wask = (40 * water_to_wask) / 1000;
+        let oilmass = (6 * water_to_wask) / 100;
+        let oilmoney = (oilmass * 50) / 60;
+        return {
+            res_to_shekel: 2 + wask + oilmoney,
+            res_wask_to_gramm: water_to_wask
+        };
+    }
+
+    function resByWask(x) {
+        let wask_money = (40 * x) / 1000;
+        let oilmass = (6 * x) / 100;
+        let oilmoney = (oilmass * 50) / 60;
+        return {
+            res_toshekel: 2 + wask_money + oilmoney,
+            res_oil_togramm: oilmass
+        };
+    }
+
+    function resoilmas(x) {
+        let water_to_wask = x * 0.9;
+        return (6 * water_to_wask) / 100;
+    }
+
+    function calculate() {
+        const x = parseFloat(document.getElementById('inputX').value);
+        if (isNaN(x) || x <= 0) {
+            document.getElementById('result').textContent = 'Введите положительное число';
+            return;
+        }
+        const result = resfunc(x).res_to_shekel;
+        const result2 = resfunc(x).res_wask_to_gramm;
+        const resoil = resoilmas(x);
+        document.getElementById('result').textContent = result.toFixed(2);
+        document.getElementById('result_').textContent = result2.toFixed(2);
+        document.getElementById('result1').textContent = resoil.toFixed(2);
+    }
+
+    function calculateWask() {
+        const x = parseFloat(document.getElementById('inputY').value);
+        if (isNaN(x) || x <= 0) {
+            document.getElementById('result!').textContent = 'Введите положительное число';
+            return;
+        }
+        const result = resByWask(x).res_toshekel;
+        const result2 = resByWask(x).res_oil_togramm;
+        document.getElementById('result!').textContent = result.toFixed(2);
+        document.getElementById('result_!').textContent = result2.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
