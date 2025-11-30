@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="./logo.svg">
     <title>Расчёт стоимости</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
             font-family: 'Georgia', serif;
@@ -15,6 +16,12 @@
             max-width: 600px;
             margin: auto;
             line-height: 1.6;
+            opacity: 0;
+            animation: fadePage 1s ease forwards;
+        }
+
+        @keyframes fadePage {
+            to { opacity: 1; }
         }
 
         h2 {
@@ -40,6 +47,12 @@
             border-radius: 8px;
             background-color: #fffaf6;
             box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #b38874;
+            box-shadow: 0 0 8px rgba(180, 120, 100, 0.4);
         }
 
         button {
@@ -51,11 +64,12 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: 0.3s ease;
         }
 
         button:hover {
             background-color: #c49e89;
+            transform: scale(1.05);
         }
 
         p {
@@ -77,11 +91,6 @@
             border: 1px solid #d5c4b7;
         }
 
-        section h3 {
-            margin-top: 0;
-            color: #6b4c4c;
-        }
-
         footer {
             margin-top: 50px;
             padding-top: 20px;
@@ -91,82 +100,92 @@
             color: #6e4f4f;
         }
 
-        footer a {
-            color: #6b4c4c;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .social-icons {
-            margin-top: 10px;
-            font-size: 20px;
-        }
-
         .social-icons a {
             margin: 0 10px;
             color: #6e4f4f;
+            font-size: 20px;
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 20px;
-            }
+        /* Fade-in animation for elements */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
 
-            h2 {
-                font-size: 20px;
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
 
-            button {
-                width: 100%;
-            }
+        /* Result bounce animation */
+        .update-bounce {
+            animation: bounce 0.4s ease;
+        }
 
-            .social-icons {
-                font-size: 18px;
-            }
+        @keyframes bounce {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.15); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
+
 <body>
 
-<h2>Калькулятор стоимости</h2>
+<h2 class="fade-in" style="animation-delay: 0.1s">Калькулятор стоимости</h2>
 
-<label for="inputX">Введите в миллилитрах воду:</label>
-<input type="number" id="inputX" placeholder="например, 250">
-<button onclick="calculate()">Рассчитать</button>
-<p>Результат стоимости: <span id="result">—</span> шекелей</p>
-<p>Количество воска: <span id="result_">—</span> миллилитров</p>
-<p>Количество масла: <span id="result1">—</span> грамм</p>
+<label class="fade-in" style="animation-delay:0.2s">Введите в миллилитрах воду:</label>
+<input class="fade-in" style="animation-delay:0.3s" type="number" id="inputX" placeholder="например, 250">
+<button class="fade-in" style="animation-delay:0.4s" onclick="calculate()">Рассчитать</button>
+<p class="fade-in" style="animation-delay:0.5s">Результат стоимости: <span id="result">—</span> шекелей</p>
+<p class="fade-in" style="animation-delay:0.6s">Количество воска: <span id="result_">—</span> миллилитров</p>
+<p class="fade-in" style="animation-delay:0.7s">Количество масла: <span id="result1">—</span> грамм</p>
 
-<label for="inputY">Введите в миллилитрах воск:</label>
-<input type="number" id="inputY" placeholder="например, 250">
-<button onclick="calculateWask()">Рассчитать</button>
-<p>Результат стоимости: <span id="result!">—</span> шекелей</p>
-<p>Количество масла: <span id="result_!">—</span> миллилитров</p>
+<label class="fade-in" style="animation-delay:0.8s">Введите в миллилитрах воск:</label>
+<input class="fade-in" style="animation-delay:0.9s" type="number" id="inputY" placeholder="например, 250">
+<button class="fade-in" style="animation-delay:1.0s" onclick="calculateWask()">Рассчитать</button>
+<p class="fade-in" style="animation-delay:1.1s">Результат стоимости: <span id="result!">—</span> шекелей</p>
+<p class="fade-in" style="animation-delay:1.2s">Количество масла: <span id="result_!">—</span> миллилитров</p>
 
-<section>
-    <h3>Как считается:</h3>
+<label class="fade-in" style="animation-delay:1.3s">Введите в миллилитрах объём (исходя из воды):</label>
+<input class="fade-in" style="animation-delay:1.4s" type="number" id="inputZ" placeholder="например, 250">
+<button class="fade-in" style="animation-delay:1.5s" onclick="calculateZ()">Рассчитать</button>
+<p class="fade-in" style="animation-delay:1.6s">Количество воды: <span id="resultZ">—</span> миллилитров</p>
+<p class="fade-in" style="animation-delay:1.7s">Количество гипса: <span id="result_Z">—</span> грамм</p>
+
+<section class="fade-in" style="animation-delay:1.8s">
+    <h3>Стоимость свечи</h3>
     <ul>
-        <li>Из воды извлекается 90% воска. Например, из 250 мл воды получится 225 мл воска.</li>
-        <li>Стоимость воска: <strong>40 шекелей за 1 литр</strong> (0.04 шекеля за 1 мл).</li>
-        <li>Из воска получается масло: <strong>6% от объёма воска</strong>. Например, из 225 мл воска — 13.5 мл масла.</li>
-        <li>Стоимость масла: <strong>50 шекелей за 60 грамм</strong> (~0.83 шекеля за грамм).</li>
-        <li>К стоимости добавляется базовая цена: <strong>2 шекеля</strong>.</li>
+        <li>Из воды извлекается 90% воска.</li>
+        <li>Стоимость воска: <strong>40 шекелей за литр</strong>.</li>
+        <li>6% воска превращается в масло.</li>
+        <li>Масло: <strong>50 шекелей за 60 грамм</strong>.</li>
+        <li>Базовая цена: <strong>2 шекеля</strong>.</li>
+        <h4>Калькулятор гипсовых форм</h4>
+        <li> Расчет происходит исходя из соотношения 37% воды 63% воска</li>
     </ul>
 </section>
 
-<footer>
+<footer class="fade-in" style="animation-delay:2.0s">
     <p>© 2025 Даниил Гершзон</p>
     <div class="social-icons">
-        <a href="https://www.linkedin.com/in/daniel-gershzon-5047a5313/" target="_blank" title="Мой LinkedIn">
+        <a href="https://www.linkedin.com/in/daniel-gershzon-5047a5313/" target="_blank">
             <i class="fab fa-linkedin"></i>
         </a>
     </div>
 </footer>
 
 <script>
+    function animateResult(id) {
+        const el = document.getElementById(id);
+        el.classList.remove('update-bounce');
+        void el.offsetWidth;
+        el.classList.add('update-bounce');
+    }
+
     function resfunc(x) {
         let water_to_wask = x * 0.9;
         let wask = (40 * water_to_wask) / 1000;
@@ -195,28 +214,50 @@
 
     function calculate() {
         const x = parseFloat(document.getElementById('inputX').value);
-        if (isNaN(x) || x <= 0) {
-            document.getElementById('result').textContent = 'Введите положительное число';
-            return;
-        }
-        const result = resfunc(x).res_to_shekel;
-        const result2 = resfunc(x).res_wask_to_gramm;
-        const resoil = resoilmas(x);
-        document.getElementById('result').textContent = result.toFixed(2);
-        document.getElementById('result_').textContent = result2.toFixed(2);
-        document.getElementById('result1').textContent = resoil.toFixed(2);
+        if (isNaN(x) || x <= 0) return;
+
+        const result = resfunc(x);
+
+        document.getElementById('result').textContent = result.res_to_shekel.toFixed(2);
+        document.getElementById('result_').textContent = result.res_wask_to_gramm.toFixed(2);
+        document.getElementById('result1').textContent = resoilmas(x).toFixed(2);
+
+        animateResult("result");
+        animateResult("result_");
+        animateResult("result1");
+    }
+
+    function water_gips(num) {
+        return {
+            water: (num * 37) / 100,
+            gips: (num * 63) / 100
+        };
     }
 
     function calculateWask() {
         const x = parseFloat(document.getElementById('inputY').value);
-        if (isNaN(x) || x <= 0) {
-            document.getElementById('result!').textContent = 'Введите положительное число';
-            return;
-        }
-        const result = resByWask(x).res_toshekel;
-        const result2 = resByWask(x).res_oil_togramm;
-        document.getElementById('result!').textContent = result.toFixed(2);
-        document.getElementById('result_!').textContent = result2.toFixed(2);
+        if (isNaN(x) || x <= 0) return;
+
+        const result = resByWask(x);
+
+        document.getElementById('result!').textContent = result.res_toshekel.toFixed(2);
+        document.getElementById('result_!').textContent = result.res_oil_togramm.toFixed(2);
+
+        animateResult("result!");
+        animateResult("result_!");
+    }
+
+    function calculateZ() {
+        const x = parseFloat(document.getElementById('inputZ').value);
+        if (isNaN(x) || x <= 0) return;
+
+        const result = water_gips(x);
+
+        document.getElementById('resultZ').textContent = result.water.toFixed(2);
+        document.getElementById('result_Z').textContent = result.gips.toFixed(2);
+
+        animateResult("resultZ");
+        animateResult("result_Z");
     }
 </script>
 
